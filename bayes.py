@@ -44,7 +44,23 @@ def stdev(numbers):
 
 
 def summarize(data_set):
-    summaries = [(mean())]
+    summaries = [(mean(feature), stdev(feature)) for feature in zip(*data_set)]
+    del summaries[-1]
+    return summaries
+
+
+def summarize_by_class(data_set):
+    class_map = separte_by_class(data_set, -2)
+    summaries = {}
+    for class_val, data in class_map.items():
+        summaries[class_val] = summarize(data)
+    return summaries
+
+
+def calculate_probability(x, mean, stdev):
+    exponent = math.exp(-(math.pow(x - mean, 2) / (2 * math.pow(stdev, 2))))
+    # return (1 / (math.sqrt(2 * )))
+
 
 
 if __name__ == '__main__':
